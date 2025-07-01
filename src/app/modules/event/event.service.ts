@@ -5,8 +5,12 @@ const createEvent = async (payload: IEvent) => {
   return await Event.create(payload);
 };
 
+const getAllEvents = async () => {
+  return await Event.find().sort({ dateTime: -1 });
+};
+
 const getMyEvents = async (userId: string) => {
-  return await Event.find({ userId }).sort({ dateTime: -1 });
+  return await Event.find({ userId: userId }).sort({ dateTime: -1 });
 };
 
 const updateEvent = async (id: string, payload: Partial<IEvent>) => {
@@ -19,6 +23,7 @@ const deleteEvent = async (id: string) => {
 
 export const eventService = {
   createEvent,
+  getAllEvents,
   getMyEvents,
   updateEvent,
   deleteEvent,

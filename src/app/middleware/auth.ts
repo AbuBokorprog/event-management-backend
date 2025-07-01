@@ -7,6 +7,7 @@ import { AppError } from '../errors/AppError';
 import httpStatus from 'http-status';
 import { User } from '../modules/user/user.model';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 const auth = (...requiredRoles: string[]) => {
   return catchAsync(
     async (
@@ -14,7 +15,7 @@ const auth = (...requiredRoles: string[]) => {
       res: Response,
       next: NextFunction,
     ) => {
-      const token = req.headers.authorization;
+      const token = req.headers.authorization?.split(' ')[1];
 
       // checking if the token is missing
       if (!token) {
@@ -27,18 +28,18 @@ const auth = (...requiredRoles: string[]) => {
         config.jwt_access_secret as string,
       ) as JwtPayload;
 
-      const { role, userId } = decoded;
+      const { id } = decoded;
 
       // checking if the user is exist
-      const user = await User.findById({ userId });
+      const user = await User.findById(id);
 
       if (!user) {
         throw new AppError(404, 'This user is not found !');
       }
 
-      if (requiredRoles && !requiredRoles.includes(role)) {
-        throw new AppError(400, 'You are not authorized  hi!');
-      }
+      // if (requiredRoles && !requiredRoles.includes(role)) {
+      //   throw new AppError(400, 'You are not authorized  hi!');
+      // }
 
       req.user = decoded as JwtPayload;
       next();

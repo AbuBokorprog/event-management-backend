@@ -31,7 +31,13 @@ const login = async (
   email: string,
   password: string,
 ): Promise<ILoginResponse> => {
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select({
+    password: 1,
+    name: 1,
+    email: 1,
+    photoUrl: 1,
+  });
+
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User not found');
   }

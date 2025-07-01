@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 
 export interface IEvent extends Document {
   title: string;
@@ -6,6 +6,7 @@ export interface IEvent extends Document {
   dateTime: Date;
   location: string;
   description: string;
+  photoUrl: string;
   attendeeCount: number;
-  userId: string;
+  userId: Schema.Types.ObjectId;
 }

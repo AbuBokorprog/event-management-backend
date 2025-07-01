@@ -27,6 +27,15 @@ const getMyEvents = catchAsync(
     });
   },
 );
+const getAllEvents = catchAsync(async (req: Request, res: Response) => {
+  const events = await eventService.getAllEvents();
+  successResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'All Events',
+    data: events,
+  });
+});
 
 const updateEvent = catchAsync(async (req: Request, res: Response) => {
   const event = await eventService.updateEvent(req.params.id, req.body);
@@ -50,6 +59,7 @@ const deleteEvent = catchAsync(async (req: Request, res: Response) => {
 
 export const eventController = {
   createEvent,
+  getAllEvents,
   getMyEvents,
   updateEvent,
   deleteEvent,

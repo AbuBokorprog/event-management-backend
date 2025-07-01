@@ -12,13 +12,17 @@ router.post(
   validateRequest(createEventSchema),
   eventController.createEvent,
 );
+router.get('/', auth(), eventController.getAllEvents);
+
 router.get('/my-events', auth(), eventController.getMyEvents);
+
 router.patch(
   '/:id',
   auth(),
   validateRequest(updateEventSchema),
   eventController.updateEvent,
 );
+
 router.delete('/:id', auth(), eventController.deleteEvent);
 
 export const EventRoutes = router;
