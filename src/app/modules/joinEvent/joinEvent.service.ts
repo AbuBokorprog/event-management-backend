@@ -14,7 +14,13 @@ const join = async (payload: IJoinEvent) => {
     throw new AppError(httpStatus.CONFLICT, 'You already joined this event');
   }
 
-  // Increase attendee count
+  const event = await Event.findById(payload.eventId);
+
+  if (event?.attendeeCount == 0) {
+    throw new AppError(httpStatus.NOT_ACCEPTABLE, 'All seat are booked!');
+  }
+
+  // Decrement attendee count
   await Event.findByIdAndUpdate(payload.eventId, {
     $inc: { attendeeCount: 1 },
   });
