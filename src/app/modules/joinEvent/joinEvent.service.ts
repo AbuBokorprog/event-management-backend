@@ -28,7 +28,13 @@ const getMyJoinedEvents = async (userId: string) => {
   return events;
 };
 
+const getMyJoinedEvent = async (userId: string, eventId: string) => {
+  const event = await JoinEvent.findOne({ userId, eventId });
+  return event;
+};
+
 export const joinEventService = {
   join,
   getMyJoinedEvents,
+  getMyJoinedEvent,
 };

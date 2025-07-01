@@ -37,7 +37,23 @@ const getMyJoinedEvents = catchAsync(
   },
 );
 
+const getMyJoinedEvent = catchAsync(
+  async (req: Request & { user?: any }, res: Response) => {
+    const userId = req.user.id;
+    const eventId = req.params.id;
+    const result = await joinEventService.getMyJoinedEvent(userId, eventId);
+
+    successResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Fetched joined event',
+      data: result,
+    });
+  },
+);
+
 export const joinEventController = {
   join,
   getMyJoinedEvents,
+  getMyJoinedEvent,
 };

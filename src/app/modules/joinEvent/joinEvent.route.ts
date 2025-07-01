@@ -14,5 +14,10 @@ router.post(
 );
 
 router.get('/my-events', auth(), joinEventController.getMyJoinedEvents);
+router.get(
+  '/my-events/details/:id',
+  auth(),
+  joinEventController.getMyJoinedEvent,
+);
 
 export const joinEventRoutes = router;

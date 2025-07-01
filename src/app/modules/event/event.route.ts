@@ -12,7 +12,7 @@ router.post(
   validateRequest(createEventSchema),
   eventController.createEvent,
 );
-router.get('/', auth(), eventController.getAllEvents);
+router.get('/', eventController.getAllEvents);
 
 router.get('/my-events', auth(), eventController.getMyEvents);
 
