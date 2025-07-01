@@ -17,7 +17,7 @@ const deleteEvent = async (id: string) => {
   return await Event.findByIdAndDelete(id);
 };
 
-export const EventService = {
+export const eventService = {
   createEvent,
   getMyEvents,
   updateEvent,

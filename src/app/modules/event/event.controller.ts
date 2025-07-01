@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response } from 'express';
-import { EventService } from './event.service';
+import { eventService } from './event.service';
 import catchAsync from '../../utils/catchAsync';
 import successResponse from '../../utils/successRespon';
 
-export const createEvent = catchAsync(async (req: Request, res: Response) => {
-  const event = await EventService.createEvent(req.body);
+const createEvent = catchAsync(async (req: Request, res: Response) => {
+  const event = await eventService.createEvent(req.body);
   successResponse(res, {
     statusCode: 201,
     success: true,
@@ -15,10 +15,10 @@ export const createEvent = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const getMyEvents = catchAsync(
+const getMyEvents = catchAsync(
   async (req: Request & { user?: any }, res: Response) => {
     const userId = req.user.id;
-    const events = await EventService.getMyEvents(userId);
+    const events = await eventService.getMyEvents(userId);
     successResponse(res, {
       statusCode: 200,
       success: true,
@@ -28,8 +28,8 @@ export const getMyEvents = catchAsync(
   },
 );
 
-export const updateEvent = catchAsync(async (req: Request, res: Response) => {
-  const event = await EventService.updateEvent(req.params.id, req.body);
+const updateEvent = catchAsync(async (req: Request, res: Response) => {
+  const event = await eventService.updateEvent(req.params.id, req.body);
   successResponse(res, {
     statusCode: 200,
     success: true,
@@ -38,8 +38,8 @@ export const updateEvent = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const deleteEvent = catchAsync(async (req: Request, res: Response) => {
-  await EventService.deleteEvent(req.params.id);
+const deleteEvent = catchAsync(async (req: Request, res: Response) => {
+  await eventService.deleteEvent(req.params.id);
   successResponse(res, {
     statusCode: 200,
     success: true,
@@ -47,3 +47,10 @@ export const deleteEvent = catchAsync(async (req: Request, res: Response) => {
     data: null,
   });
 });
+
+export const eventController = {
+  createEvent,
+  getMyEvents,
+  updateEvent,
+  deleteEvent,
+};

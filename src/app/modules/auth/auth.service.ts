@@ -42,13 +42,23 @@ const login = async (
   }
 
   const access_token = jwt.sign(
-    { id: user._id, email: user.email },
+    {
+      id: user?._id,
+      email: user?.email,
+      name: user?.name,
+      photoURL: user?.photoURL,
+    },
     config.jwt_access_secret as string,
     { expiresIn: config.jwt_access_expires_in } as SignOptions,
   );
 
   const refresh_token = jwt.sign(
-    { id: user._id, email: user.email },
+    {
+      id: user?._id,
+      email: user?.email,
+      name: user?.name,
+      photoURL: user?.photoURL,
+    },
     config.jwt_refresh_secret as string,
     { expiresIn: config.jwt_refresh_expires_in } as SignOptions,
   );
